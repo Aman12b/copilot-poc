@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stadtenergie Demo – Copilot POC</title>
+<style>
+  :root{--red:#e2001a;--dark:#1d1d1f;--grey:#f4f4f6;--text:#333;--muted:#6b6b70}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,"Segoe UI",Arial,sans-serif;color:var(--text);background:#fff}
+  a{color:inherit;text-decoration:none}
+  .poc{background:#fff3c4;color:#5a4a00;text-align:center;font-size:13px;padding:6px 12px}
+  header{position:sticky;top:0;background:#fff;border-bottom:1px solid #eee;z-index:10}
+  .bar{max-width:1200px;margin:auto;display:flex;align-items:center;gap:32px;padding:16px 24px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+  .logo i{width:30px;height:30px;border-radius:8px;background:var(--red);display:inline-block}
+  nav{display:flex;gap:24px;flex:1}
+  nav a{font-weight:500;color:var(--dark)}nav a:hover{color:var(--red)}
+  .btn{background:var(--red);color:#fff;border:none;border-radius:999px;padding:10px 22px;font-weight:600;cursor:pointer}
+  .btn.ghost{background:transparent;color:var(--dark);border:2px solid var(--dark)}
+  .hero{background:linear-gradient(120deg,#2b0a10 0%,#7a0012 55%,var(--red) 100%);color:#fff}
+  .hero .in{max-width:1200px;margin:auto;padding:88px 24px;display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center}
+  .hero h1{font-size:46px;line-height:1.1;margin:0 0 16px}
+  .hero p{font-size:19px;opacity:.9;margin:0 0 28px}
+  .hero .btn{background:#fff;color:var(--red)}
+  .calc{background:#fff;color:var(--text);border-radius:16px;padding:24px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+  .calc h3{margin:0 0 16px}
+  .tabs{display:flex;gap:8px;margin-bottom:16px}
+  .tabs span{flex:1;text-align:center;padding:8px;border-radius:8px;background:var(--grey);font-weight:600;cursor:pointer}
+  .tabs span.on{background:var(--red);color:#fff}
+  .calc label{font-size:13px;color:var(--muted)}
+  .calc input{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin:4px 0 14px;font-size:15px}
+  .calc .btn{width:100%;background:var(--red);color:#fff}
+  section{max-width:1200px;margin:auto;padding:72px 24px}
+  section h2{font-size:32px;margin:0 0 8px}.sub{color:var(--muted);margin:0 0 32px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .card{border:1px solid #eee;border-radius:16px;padding:28px;transition:box-shadow .2s}
+  .card:hover{box-shadow:0 12px 32px rgba(0,0,0,.08)}
+  .card .ic{width:48px;height:48px;border-radius:12px;background:#fde6e9;color:var(--red);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px}
+  .card h3{margin:0 0 8px}.card p{color:var(--muted);margin:0 0 16px;line-height:1.5}
+  .card a{color:var(--red);font-weight:600}
+  .grey{background:var(--grey)}.grey section{padding:72px 24px}
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .tile{background:#fff;border-radius:12px;padding:22px;font-weight:600;display:flex;gap:12px;align-items:center}
+  .tile span{font-size:22px}
+  .banner{background:var(--dark);color:#fff;border-radius:20px;padding:40px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+  .banner h2{margin:0 0 6px}.banner p{margin:0;opacity:.8}
+  footer{background:#111;color:#bbb;font-size:14px}
+  footer .in{max-width:1200px;margin:auto;padding:48px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  footer h4{color:#fff;margin:0 0 12px}footer p{margin:6px 0}
+  @media(max-width:900px){nav{display:none}.hero .in,.grid,footer .in{grid-template-columns:1fr}.tiles{grid-template-columns:1fr 1fr}.hero h1{font-size:34px}.banner{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="poc">Prototyp – Demo-Umgebung zum Testen des Digitalen Assistenten. Keine echte Kundenseite.</div>
+
+<header><div class="bar">
+  <a class="logo" href="#"><i></i>Stadtenergie Demo</a>
+  <nav><a href="#">Privat</a><a href="#">Business</a><a href="#tarife">Strom &amp; Gas</a><a href="#">Wärme</a><a href="#">E-Mobilität</a><a href="#service">Service</a></nav>
+  <button class="btn ghost">Mein Konto</button>
+</div></header>
+
+<div class="hero"><div class="in">
+  <div>
+    <h1>Energie für die Stadt.<br>Einfach. Zuverlässig.</h1>
+    <p>Strom, Gas und Wärme für Ihr Zuhause – mit persönlicher Beratung rund um die Uhr durch unseren Digitalen Assistenten.</p>
+    <button class="btn" onclick="document.getElementById('cp-launcher').click()">Frag den Assistenten</button>
+  </div>
+  <div class="calc">
+    <h3>Tarifrechner</h3>
+    <div class="tabs"><span class="on">Strom</span><span>Gas</span></div>
+    <label>Postleitzahl</label><input value="1220">
+    <label>Jahresverbrauch (kWh)</label><input value="2500">
+    <button class="btn">Tarife anzeigen</button>
+  </div>
+</div></div>
+
+<section id="tarife">
+  <h2>Unsere Produkte</h2><p class="sub">Das passende Angebot für jeden Haushalt.</p>
+  <div class="grid">
+    <div class="card"><div class="ic">⚡</div><h3>Strom</h3><p>100 % Ökostrom aus erneuerbaren Quellen, mit Fixpreis- oder Floater-Option.</p><a href="#">Tarife ansehen →</a></div>
+    <div class="card"><div class="ic">🔥</div><h3>Gas</h3><p>Verlässliche Gasversorgung mit transparenten Preisen und flexibler Laufzeit.</p><a href="#">Tarife ansehen →</a></div>
+    <div class="card"><div class="ic">🏢</div><h3>Fernwärme</h3><p>Komfortable Wärme ohne eigene Heizung – effizient und platzsparend.</p><a href="#">Mehr erfahren →</a></div>
+  </div>
+</section>
+
+<div class="grey"><section id="service">
+  <h2>Service</h2><p class="sub">Erledigen Sie Ihre Anliegen online – oder fragen Sie direkt im Chat.</p>
+  <div class="tiles">
+    <a class="tile" href="#"><span>📊</span>Zählerstand melden</a>
+    <a class="tile" href="#"><span>📦</span>Umzug melden</a>
+    <a class="tile" href="#"><span>💶</span>Teilbetrag ändern</a>
+    <a class="tile" href="#"><span>🧾</span>Rechnung erklärt</a>
+    <a class="tile" href="#"><span>🔌</span>Störungen</a>
+    <a class="tile" href="#"><span>🏦</span>Bankdaten ändern</a>
+    <a class="tile" href="#"><span>📄</span>Vertrag kündigen</a>
+    <a class="tile" href="#"><span>💬</span>Kontakt</a>
+  </div>
+</section></div>
+
+<section>
+  <div class="banner">
+    <div><h2>Fragen? Der Digitale Assistent hilft sofort.</h2><p>Rund um die Uhr – bei Bedarf mit Übergabe an unser Kundenservice-Team.</p></div>
+    <button class="btn" onclick="document.getElementById('cp-launcher').click()">Chat starten</button>
+  </div>
+</section>
+
+<footer><div class="in">
+  <div><h4>Stadtenergie Demo</h4><p>Prototyp für den Digitalen Assistenten</p></div>
+  <div><h4>Privat</h4><p>Strom</p><p>Gas</p><p>Wärme</p></div>
+  <div><h4>Service</h4><p>Kundenkonto</p><p>FAQ</p><p>Kontakt</p></div>
+  <div><h4>Rechtliches</h4><p>Impressum</p><p>Datenschutz</p></div>
+</div></footer>
+
+<script src="config.js"></script>
+<script src="chatbot.js"></script>
+</body>
+</html>
